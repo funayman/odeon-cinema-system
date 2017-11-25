@@ -1,0 +1,85 @@
+<!-- layout taken from http://getbootstrap.com/docs/4.0/examples/jumbotron/ -->
+<!doctype html>
+<html>
+<head>
+  <title>Odeon Cinema System: Report</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <style type="text/css">
+  .star {
+    color: #FFC107;
+  }
+  </style>
+</head>
+
+<body>
+  <main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1 class="display-3">{{title}}</h1>
+        <p><a class="btn btn-primary btn-lg" href="/" role="button">« Return to Dashboard</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Generated Report</h2>
+      <hr/>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <caption>
+              <span class="oi oi-dollar"></span> Highest Grosing Movie<br/>
+              <span class="oi oi-fire"></span> Highest Rated Movie<br/>
+              <span class="oi oi-person"></span> Most Viewed Film
+            </caption>
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">Movie</th>
+                <th scope="col">Total Spectators</th>
+                <th scope="col">Average Review</th>
+                <th scope="col">Total Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for movie in report.movies %}
+              <tr>
+                <th class="text-center" scope="row">
+                  {% if movie.id == report.highestRatedMovie.id %}<span class="oi oi-fire"></span>{% endif %}
+                  {% if movie.id == report.highestGrossingMovie.id %}<span class="oi oi-dollar"></span>{% endif %}
+                  {% if movie.id == report.mostViewedMovie.id %}<span class="oi oi-person"></span>{% endif %}
+                </th>
+                <td>{{movie.title}}</td>
+                <td>{{report.getTotalSpectatorsPerMovie(movie)}}</td>
+                <td>
+                  {% set avgReview = movie.averageReview %}
+                  ({{avgReview|number_format(2)}})
+                  <!-- stars --> {% for i in [1..round(avgReview, 'FLOOR')] %}<span class="oi oi-star star"></span>{% endfor %}<br/> <!-- /stars -->
+                </td>
+                <td><span class="oi oi-british-pound"></span>{{report.getTotalRevenuePerMovie(movie)|number_format(2)}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div> <!-- /div.table-responsive -->
+      </div> <!-- /div.row -->
+      <hr/>
+    </div> <!-- /container -->
+  </main>
+
+  <footer class="container">
+    <p>&copy; Dr.T 2017</p>
+  </footer>
+
+  <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/webjars/popper.js/1.12.9/dist/umd/popper.min.js"></script>
+  <script src="/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</body>
+</html>

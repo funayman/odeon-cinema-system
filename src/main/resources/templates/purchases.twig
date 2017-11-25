@@ -1,0 +1,75 @@
+<!-- layout taken from http://getbootstrap.com/docs/4.0/examples/jumbotron/ -->
+<!doctype html>
+<html>
+<head>
+  <title>Odeon Cinema System: Purchases</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1 class="display-3">{{title}}</h1>
+        <p>All about that cheddar baby</p>
+        <p><a class="btn btn-primary btn-lg" href="/" role="button">« Return to Dashboard</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>All Purchases</h2>
+      <hr/>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Movie</th>
+              <th scope="col">Seat Type</th>
+              <th scope="col">Screening</th>
+              <th scope="col"># of Tickets</th>
+              <th scope="col">Total</th>
+              <th scope="col">Payment Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for purchase in purchases %}
+            <tr>
+              <th scope="row">{{purchase.id}}</th>
+              <td>{{purchase.customer.firstName}} {{purchase.customer.lastName}}</td>
+              <td>{{purchase.movie.title}}</td>
+              <td>{{purchase.seat}}</td>
+              <td>{{purchase.screening}}</td>
+              <td>{{purchase.numberOfTickets}}</td>
+              <td><span class="oi oi-british-pound"></span>{{purchase.total|number_format(2)}}</td>
+              <td>{{purchase.payment}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div> <!-- /div.table-responsive -->
+
+      <hr/>
+    </div> <!-- /container -->
+
+  </main>
+
+  <footer class="container">
+    <p>&copy; Dr.T 2017</p>
+  </footer>
+
+  <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/webjars/popper.js/1.12.9/dist/umd/popper.min.js"></script>
+  <script src="/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!-- layout taken from http://getbootstrap.com/docs/4.0/examples/jumbotron/ -->
+<!doctype html>
+<html>
+<head>
+  <title>Odeon Cinema System</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <style type="text/css">
+  .star {
+    color: #FFC107;
+  }
+  </style>
+</head>
+
+<body>
+  <main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1 class="display-3">{{title}}</h1>
+        <p>The system of all systems</p>
+        <p><a class="btn btn-primary btn-lg" href="/report" role="button">Generate Report »</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Current Screen Information</h2>
+      <div class="row">
+        <div class="col-4">
+          <div class="list-group" id="screen-list-tab" role="tablist">
+            {% for screen in screens %}
+            <a class="list-group-item list-group-item-action {% if (loop.first) %}active{% endif %}" id="list-screen-{{loop.index}}" data-toggle="list" href="#screen-{{loop.index}}" role="tab" aria-controls="home">Screen {{loop.index}}</a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="col-8">
+          <div class="tab-content" id="nav-screen-content">
+            {% for screen in screens %}
+            <div class="tab-pane fade show {% if (loop.first) %}active{% endif %}" id="screen-{{loop.index}}" role="tabpanel" aria-labelledby="list-screen-{{loop.index}}">
+              <h3>{{screen.movie.title}} ({{screen.movie.year}})</h3>
+              <p><strong>Director: </strong>{{screen.movie.director}}</p>
+              <p><strong>Genre: </strong>{{screen.movie.genre}}</p>
+              <p><strong>Overview: </strong>{{screen.movie.desc}}</p>
+              <p><strong>Showings: </strong>{% for key, value in screen.showings %}{{key}}{% if not (loop.last) %} | {% endif %}{% endfor %}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div><!-- /row -->
+      <hr/>
+
+      <h2>Recent Reviews <a href="/reviews" class="btn btn-warning float-right">See All Reviews</a></h2>
+      <div class="row">
+        {% for review in reviews %}
+        <div class="col-sm-6 col-lg-3">
+          <p class="text-center">
+            <strong>{{review.movie.title}}</strong><br/>
+            <!-- stars --> {% for i in [1..review.rating] %}<span class="oi oi-star star"></span>{% endfor %}<br/> <!-- /stars -->
+          </p>
+          <p class="text-center"> {{review.description}} </p>
+          <p class="text-center font-italic">{{review.customer.firstName}} {{review.customer.lastName}} @ {{date(review.dateCreated, "yyyy-MM-dd")}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <hr/>
+
+      <h2>Recent Payments <a href="/purchases" class="btn btn-warning float-right">See All Payments</a></h2>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Movie</th>
+                <th scope="col">Seat Type</th>
+                <th scope="col">Screening</th>
+                <th scope="col"># of Tickets</th>
+                <th scope="col">Total</th>
+                <th scope="col">Payment Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for purchase in purchases %}
+              <tr>
+                <th scope="row">{{purchase.id}}</th>
+                <td>{{purchase.customer.firstName}} {{purchase.customer.lastName}}</td>
+                <td>{{purchase.movie.title}}</td>
+                <td>{{purchase.seat}}</td>
+                <td>{{purchase.screening}}</td>
+                <td>{{purchase.numberOfTickets}}</td>
+                <td><span class="oi oi-british-pound"></span>{{purchase.total|number_format(2)}}</td>
+                <td>{{purchase.payment}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div> <!-- /div.table-responsive -->
+      </div>
+      <hr/>
+    </div> <!-- /container -->
+
+  </main>
+
+  <footer class="container">
+    <p>&copy; Dr.T 2017</p>
+  </footer>
+
+  <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/webjars/popper.js/1.12.9/dist/umd/popper.min.js"></script>
+  <script src="/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</body>
+</html>

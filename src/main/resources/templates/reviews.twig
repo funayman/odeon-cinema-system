@@ -1,0 +1,60 @@
+<!-- layout taken from http://getbootstrap.com/docs/4.0/examples/jumbotron/ -->
+<!doctype html>
+<html>
+<head>
+  <title>Odeon Cinema System: Reviews</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <style type="text/css">
+  .star {
+    color: #FFC107;
+  }
+  </style>
+</head>
+
+<body>
+  <main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1 class="display-3">{{title}}</h1>
+        <p>Review Me</p>
+        <p><a class="btn btn-primary btn-lg" href="/" role="button">« Return to Dashboard</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>All Reviews</h2>
+      <hr/>
+      <div class="row">
+        {% for review in reviews %}
+        <div class="col-sm-6 col-lg-3">
+          <p class="text-center">
+            <strong>{{review.movie.title}}</strong><br/>
+            <!-- stars --> {% for i in [1..review.rating] %}<span class="oi oi-star star"></span>{% endfor %}<br/> <!-- /stars -->
+          </p>
+          <p class="text-center"> {{review.description}} </p>
+          <p class="text-center font-italic">{{review.customer.firstName}} {{review.customer.lastName}} @ {{date(review.dateCreated, "yyyy-MM-dd")}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <hr/>
+    </div> <!-- /container -->
+
+  </main>
+
+  <footer class="container">
+    <p>&copy; Dr.T 2017</p>
+  </footer>
+
+  <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/webjars/popper.js/1.12.9/dist/umd/popper.min.js"></script>
+  <script src="/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</body>
+</html>
