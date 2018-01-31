@@ -1,4 +1,6 @@
 # Odeon Cinema System
+This is the final project for my java course while taking my masters.
+
 ## Assignment Requirements
 The Odeon Cinema needs software for managing bookings made by customers, the screens, the films and the timing of each projection.
 
@@ -50,7 +52,7 @@ $ docker run --rm -v maven-repo:/root/.m2 -v "$(pwd)":/app -w /app maven:3.5.0-j
 ```
 
 ### Download a Precompiled JAR
-If you don't have Docker or Maven or the JDK installed on your machine you can download an [Uber-JAR](https://stackoverflow.com/a/11947093) of the project under the [Releases Page](https://bitbucket.org/dd16abc/odeon-cinema-system/downloads/)
+If you don't have Docker or Maven or the JDK installed on your machine you can download an [Uber-JAR](https://stackoverflow.com/a/11947093) of the project under the [Releases Page](https://github.com/funayman/odeon-cinema-system/releases/tag/v1.0-beta)
 
 ## Deployment
 By default, the JAR file will be built and located in `{PROJECT_DIR}/target`
